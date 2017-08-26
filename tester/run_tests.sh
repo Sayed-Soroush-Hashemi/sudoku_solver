@@ -7,14 +7,19 @@ do
 done
 cd ..
 
-# compile c++ program
-g++ ../sudoku_solver.cpp -O2 -o cpp_sudoku_solver.out
+case $1 in
+	"cpp" ) 
+		g++ ../sudoku_solver.cpp -O2 -o cpp_sudoku_solver.out
+		program="./cpp_sudoku_solver.out"
+		;;
+	"python" )
+		program="python ../sudoku_solver.py"
+		;;
+esac
 
-# run solver
 rm outputs/*
-for file_name in ${file_names[@]}
-do 
-	./cpp_sudoku_solver.out < "inputs/$file_name" > "outputs/$file_name"
+for file_name in ${file_names[@]}; do 
+	$program < "inputs/$file_name" > "outputs/$file_name"
 done
 
 # check outputs
